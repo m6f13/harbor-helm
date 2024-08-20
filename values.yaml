@@ -1,6 +1,7 @@
 expose:
   # Set how to expose the service. Set the type as "ingress", "clusterIP", "nodePort" or "loadBalancer"
   # and fill the information in the corresponding section
+  #type: ingress
   type: ingress
   tls:
     # Enable TLS or not.
@@ -20,7 +21,7 @@ expose:
     auto:
       # The common name used to generate the certificate, it's necessary
       # when the type isn't "ingress"
-      commonName: ""
+      commonName: "harbor"
     secret:
       # The name of secret which contains keys named:
       # "tls.crt" - the certificate
@@ -28,7 +29,8 @@ expose:
       secretName: ""
   ingress:
     hosts:
-      core: core.harbor.domain
+      #core: core.harbor.domain
+      core: harbor.developer
     # set to the type of ingress controller if it has specific requirements.
     # leave as `default` for most ingress controllers.
     # set to `gce` if using the GCE ingress controller
@@ -38,7 +40,7 @@ expose:
     controller: default
     ## Allow .Capabilities.KubeVersion.Version to be overridden while creating ingress
     kubeVersionOverride: ""
-    className: ""
+    className: "nginx"
     annotations:
       # note different ingress controllers may require a different ssl-redirect annotation
       # for Envoy, use ingress.kubernetes.io/force-ssl-redirect: "true" and remove the nginx lines below
@@ -109,7 +111,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: https://core.harbor.domain
+externalURL: https://harbor.developer:8443
 
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamically.
@@ -133,7 +135,7 @@ persistence:
       # Specify the "storageClass" used to provision the volume. Or the default
       # StorageClass will be used (the default).
       # Set it to "-" to disable dynamic provisioning
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
       accessMode: ReadWriteOnce
       size: 5Gi
@@ -141,7 +143,7 @@ persistence:
     jobservice:
       jobLog:
         existingClaim: ""
-        storageClass: ""
+        storageClass: "nfs-client"
         subPath: ""
         accessMode: ReadWriteOnce
         size: 1Gi
@@ -150,7 +152,7 @@ persistence:
     # be ignored
     database:
       existingClaim: ""
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
       accessMode: ReadWriteOnce
       size: 1Gi
@@ -159,14 +161,14 @@ persistence:
     # be ignored
     redis:
       existingClaim: ""
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
       accessMode: ReadWriteOnce
       size: 1Gi
       annotations: {}
     trivy:
       existingClaim: ""
-      storageClass: ""
+      storageClass: "nfs-client"
       subPath: ""
       accessMode: ReadWriteOnce
       size: 5Gi
@@ -278,7 +280,7 @@ harborAdminPassword: "Harbor12345"
 # in each component tls cert files need to provided in advance.
 internalTLS:
   # If internal TLS enabled
-  enabled: false
+  enabled: true
   # enable strong ssl ciphers (default: false)
   strong_ssl_ciphers: false
   # There are three ways to provide tls
