@@ -2,7 +2,7 @@ expose:
   # Set how to expose the service. Set the type as "ingress", "clusterIP", "nodePort" or "loadBalancer"
   # and fill the information in the corresponding section
   #type: ingress
-  type: ingress
+  type: clusterIP
   tls:
     # Enable TLS or not.
     # Delete the "ssl-redirect" annotations in "expose.ingress.annotations" when TLS is disabled and "expose.type" is "ingress"
@@ -21,7 +21,7 @@ expose:
     auto:
       # The common name used to generate the certificate, it's necessary
       # when the type isn't "ingress"
-      commonName: "harbor"
+      commonName: "harbor.harbor.svc.cluster.local"
     secret:
       # The name of secret which contains keys named:
       # "tls.crt" - the certificate
@@ -59,7 +59,7 @@ expose:
       # The service port Harbor listens on when serving HTTP
       httpPort: 80
       # The service port Harbor listens on when serving HTTPS
-      httpsPort: 443
+      httpsPort: 8443
     # Annotations on the ClusterIP service
     annotations: {}
     # ClusterIP-specific labels
@@ -111,7 +111,7 @@ expose:
 # the IP address of k8s node
 #
 # If Harbor is deployed behind the proxy, set it as the URL of proxy
-externalURL: https://harbor.developer:8443
+externalURL: https://harbor.harbor.svc.cluster.local:8443
 
 # The persistence is enabled by default and a default StorageClass
 # is needed in the k8s cluster to provision volumes dynamically.
