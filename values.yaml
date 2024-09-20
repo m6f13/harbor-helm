@@ -280,7 +280,7 @@ harborAdminPassword: "Harbor12345"
 # in each component tls cert files need to provided in advance.
 internalTLS:
   # If internal TLS enabled
-  enabled: true
+  enabled: false 
   # enable strong ssl ciphers (default: false)
   strong_ssl_ciphers: false
   # There are three ways to provide tls
@@ -390,7 +390,7 @@ enableMigrateHelmHook: false
 # uaaSecretName:
 
 metrics:
-  enabled: false
+  enabled: true 
   core:
     path: /metrics
     port: 8001
@@ -408,7 +408,7 @@ metrics:
   ## https://github.com/prometheus-operator/prometheus-operator/blob/main/Documentation/user-guides/getting-started.md
   ##
   serviceMonitor:
-    enabled: false
+    enabled: true 
     additionalLabels: {}
     # Scrape interval. If not set, the Prometheus default scrape interval is used.
     interval: ""
