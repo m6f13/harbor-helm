@@ -30,7 +30,7 @@ expose:
   ingress:
     hosts:
       #core: core.harbor.domain
-      core: harbor.developer
+      core: harbor.cks-controller
     # set to the type of ingress controller if it has specific requirements.
     # leave as `default` for most ingress controllers.
     # set to `gce` if using the GCE ingress controller
